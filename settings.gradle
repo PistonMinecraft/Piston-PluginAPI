@@ -1,0 +1,21 @@
+enableFeaturePreview("VERSION_CATALOGS")
+
+rootProject.name = 'Piston-PluginAPI'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            repositories {
+                maven {
+                    url 'https://maven.pkg.github.com/PistonMinecraft/PistonAPI-Common'
+                    credentials {
+                        def ENV = System.getenv()
+                        username = ENV.GPR_USERNAME
+                        password = ENV.GPR_TOKEN
+                    }
+                }
+            }
+            from('org.pistonmc.api:api-common-catalog:0.1.0.+')
+        }
+    }
+}

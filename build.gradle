@@ -1,0 +1,94 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'maven-publish'
+    id 'org.checkerframework' version '0.5.19'
+    id 'io.freefair.lombok' version '5.3.0'
+}
+
+ext {
+    ENV = System.getenv()
+    VERSION = '0.1.0'
+    BUILD = "${ENV.GITHUB_RUN_NUMBER ? (ENV.GITHUB_RUN_NUMBER ?: '0') : 'INTERNAL_BUILD'}"
+}
+
+group = 'org.pistonmc.api'
+archivesBaseName = 'plugin-api'
+version = "${VERSION}.${BUILD}"
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'PistonAPI Common GitHub Registry'
+        url 'https://maven.pkg.github.com/PistonMinecraft/PistonAPI-Common'
+        credentials {
+            username = ENV.GPR_USERNAME
+            password = ENV.GPR_TOKEN
+        }
+    }
+    maven {
+        name 'forge-maven'
+        url 'https://maven.minecraftforge.net/'
+    }
+}
+
+configurations {
+    implementation {
+        canBeResolved = true
+    }
+}
+
+dependencies {
+    implementation 'org.pistonmc.api:api-common:0.1.0.+'
+
+    annotationProcessor libs.bundles.manifold.processors
+}
+
+jar {
+    manifest.attributes([
+            'Specification-Title': project.name,
+            'Specification-Version': project.version,
+            'Specification-Vendor': 'PistonMC',
+            'Multi-Release': 'true',
+    ])
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(configurations.implementation.collect { zipTree(it) })
+}
+
+lombok {
+    config['lombok.sneakyThrows.flagUsage'] = 'error'
+    config['lombok.equalsAndHashCode.flagUsage'] = 'error'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding 'UTF-8'
+    options.verbose true
+    options.compilerArgs.addAll(['-Xplugin:Manifold'])
+}
+
+checkerFramework {
+    excludeTests = true
+    skipCheckerFramework = true
+    checkers = [
+            'org.checkerframework.checker.nullness.NullnessChecker',
+            'org.checkerframework.common.value.ValueChecker',
+    ]
+}
+
+publishing {
+    repositories {
+        maven {
+            url "https://maven.pkg.github.com/PistonMinecraft/${project.name}"
+            credentials {
+                username = ENV.GPR_USERNAME
+                password = ENV.GPR_TOKEN
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            artifactId = archivesBaseName
+            from components.java
+        }
+    }
+}

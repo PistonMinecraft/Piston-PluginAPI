@@ -1,0 +1,16 @@
+# IntelliJ IDEA
+*.iml
+.idea/
+
+# Gradle
+.gradle/
+build
+
+# Auto-generated Lombok configuration
+lombok.config
+
+# VSCode
+.settings/
+.project
+.classpath
+bin/
