@@ -20,14 +20,6 @@ version = "${VERSION}.${BUILD}"
 repositories {
     mavenCentral()
     maven {
-        name 'PistonAPI Common GitHub Registry'
-        url 'https://maven.pkg.github.com/PistonMinecraft/PistonAPI-Common'
-        credentials {
-            username = ENV.GPR_USERNAME
-            password = ENV.GPR_TOKEN
-        }
-    }
-    maven {
         name 'forge-maven'
         url 'https://maven.minecraftforge.net/'
     }
