@@ -1,0 +1,32 @@
+[versions]
+manifold = "2021.1.12"
+adventure = "4.7.0"
+joml = "1.10.1"
+log4j = "2.14.1"
+typetools = "0.8.3"
+eventbus = "4.0.0"
+
+[libraries]
+manifold-rt = { module = "systems.manifold:manifold-rt", version.ref = "manifold" }
+manifold-props-rt = { module = "systems.manifold:manifold-props-rt", version.ref = "manifold" }
+manifold-ext-rt = { module = "systems.manifold:manifold-ext-rt", version.ref = "manifold" }
+
+manifold-processor = { module = "systems.manifold:manifold", version.ref = "manifold" }
+manifold-preprocessor = { module = "systems.manifold:manifold-preprocessor", version.ref = "manifold" }
+manifold-exceptions-processor = { module = "systems.manifold:manifold-exceptions", version.ref = "manifold" }
+manifold-strings-processor = { module = "systems.manifold:manifold-strings", version.ref = "manifold" }
+manifold-ext-processor = { module = "systems.manifold:manifold-ext", version.ref = "manifold" }
+manifold-props-processor = { module = "systems.manifold:manifold-props", version.ref = "manifold" }
+
+adventure = { module = "net.kyori:adventure-api", version.ref = "adventure" }
+joml = { module = "org.joml:joml", version.ref = "joml" }
+log4j = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
+typetools = { module = "net.jodah:typetools", version.ref = "typetools" } # EventBus Lib
+eventbus = { module = "net.minecraftforge:eventbus", version.ref = "eventbus" }
+
+[bundles]
+manifold-resources = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt"]
+manifold-processors = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",
+    "manifold-strings-processor", "manifold-ext-processor", "manifold-props-processor"]
+shared-libs = ["adventure", "joml", "log4j", "typetools"]
+shared-nontransitive-libs = ["eventbus"]

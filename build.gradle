@@ -1,9 +1,10 @@
 plugins {
     id 'idea'
     id 'java'
+//    id 'version-catalog'
     id 'maven-publish'
-    id 'org.checkerframework' version '0.5.19'
-    id 'io.freefair.lombok' version '5.3.0'
+    id 'org.checkerframework' version '+'
+    id 'io.freefair.lombok' version '5.+'
 }
 
 ext {
@@ -39,10 +40,23 @@ configurations {
 }
 
 dependencies {
-    implementation 'org.pistonmc.api:api-common:0.1.0.+'
+    implementation libs.bundles.manifold.resources
+
+    implementation libs.bundles.shared.libs
+    implementation(libs.bundles.shared.nontransitive.libs) {
+        transitive = false
+    }
+
+    implementation 'org.snakeyaml:snakeyaml-engine:2.2.1'
 
     annotationProcessor libs.bundles.manifold.processors
 }
+
+//catalog {
+//    versionCatalog {
+//        from(files('gradle/libs.versions.toml'))
+//    }
+//}
 
 jar {
     manifest.attributes([
@@ -52,7 +66,7 @@ jar {
             'Multi-Release': 'true',
     ])
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    from(configurations.implementation.collect { zipTree(it) })
+    from(configurations.implementation.collect(this::zipTree))
 }
 
 lombok {
@@ -62,13 +76,11 @@ lombok {
 
 tasks.withType(JavaCompile) {
     options.encoding 'UTF-8'
-    options.verbose true
     options.compilerArgs.addAll(['-Xplugin:Manifold'])
 }
 
 checkerFramework {
     excludeTests = true
-    skipCheckerFramework = true
     checkers = [
             'org.checkerframework.checker.nullness.NullnessChecker',
             'org.checkerframework.common.value.ValueChecker',
@@ -90,5 +102,9 @@ publishing {
             artifactId = archivesBaseName
             from components.java
         }
+//        maven(MavenPublication) {
+//            artifactId = "${archivesBaseName}-catalog"
+//            from components.versionCatalog
+//        }
     }
 }
