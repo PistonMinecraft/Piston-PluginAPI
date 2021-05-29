@@ -1,7 +1,6 @@
 plugins {
     id 'idea'
     id 'java'
-//    id 'version-catalog'
     id 'maven-publish'
     id 'org.checkerframework' version '+'
     id 'io.freefair.lombok' version '5.+'
@@ -9,13 +8,14 @@ plugins {
 
 ext {
     ENV = System.getenv()
+    MC_VERSION = '1.16.x'
     VERSION = '0.1.0'
     BUILD = "${ENV.GITHUB_RUN_NUMBER ? (ENV.GITHUB_RUN_NUMBER ?: '0') : 'INTERNAL_BUILD'}"
 }
 
 group = 'org.pistonmc.api'
 archivesBaseName = 'plugin-api'
-version = "${VERSION}.${BUILD}"
+version = "$MC_VERSION-$VERSION.$BUILD"
 
 repositories {
     mavenCentral()
@@ -26,9 +26,7 @@ repositories {
 }
 
 configurations {
-    implementation {
-        canBeResolved = true
-    }
+    implementation.canBeResolved = true
 }
 
 dependencies {
@@ -39,16 +37,8 @@ dependencies {
         transitive = false
     }
 
-    implementation 'org.snakeyaml:snakeyaml-engine:2.2.1'
-
     annotationProcessor libs.bundles.manifold.processors
 }
-
-//catalog {
-//    versionCatalog {
-//        from(files('gradle/libs.versions.toml'))
-//    }
-//}
 
 jar {
     manifest.attributes([
@@ -84,7 +74,7 @@ publishing {
         maven {
             url "https://maven.pkg.github.com/PistonMinecraft/${project.name}"
             credentials {
-                username = ENV.GPR_USERNAME
+                username = ENV.GPR_USERNAME ?: ENV.GITHUB_ACTOR
                 password = ENV.GPR_TOKEN
             }
         }
@@ -94,9 +84,5 @@ publishing {
             artifactId = archivesBaseName
             from components.java
         }
-//        maven(MavenPublication) {
-//            artifactId = "${archivesBaseName}-catalog"
-//            from components.versionCatalog
-//        }
     }
 }

@@ -19,5 +19,4 @@ jobs:
       - name: Build and publish with Gradle
         run: ./gradlew clean build publish
         env:
-          GPR_USERNAME: ${{ github.actor }}
           GPR_TOKEN: ${{ github.token }}

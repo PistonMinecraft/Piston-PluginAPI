@@ -5,9 +5,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev/** ]
   pull_request:
-    branches: [ release, dev ]
+    branches: [ release/**, dev/** ]
 
 jobs:
   build:
@@ -22,6 +22,9 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean build
-      env:
-        GPR_USERNAME: ${{ github.actor }}
-        GPR_TOKEN: ${{ github.token }}
+    - name: Upload the build output
+      uses: actions/upload-artifact@v2.2.3
+      if: success()
+      with:
+        name: Piston-PluginAPI-build-output
+        path: build/libs/**
