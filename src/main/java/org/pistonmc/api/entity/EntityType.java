@@ -2,7 +2,7 @@ package org.pistonmc.api.entity;
 
 import manifold.ext.props.rt.api.val;
 import net.kyori.adventure.text.Component;
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 import org.pistonmc.api.NamespacedResource;
 import org.pistonmc.api.ResourceHolder;
 import org.pistonmc.api.util.Util;
@@ -34,25 +34,25 @@ public interface EntityType<T extends Entity> extends ResourceHolder {
     /**
      * The category of this type of entity
      */
-    @val(annos = @NonNull) MobCategory category;
+    @val(annos = @NotNull) MobCategory category;
 
     /**
      * Translatable name id of this type of entity(format: entity.namespace.path.separated.with.dots)
      */
 //    @val(annos = @NonNull) String descriptionId = Util.makeDescriptionId("entity", id); FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-    default @NonNull String getDescriptionId() { return Util.makeDescriptionId("entity", id); }
+    default @NotNull String getDescriptionId() { return Util.makeDescriptionId("entity", id); }
 
     /**
      * Translated name component of this type of entity
      */
 //    @val(annos = @NonNull) Component description = Component.translatable(descriptionId); FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-    default @NonNull Component getDescription() { return Component.translatable(getDescriptionId()); }
+    default @NotNull Component getDescription() { return Component.translatable(getDescriptionId()); }
 
     /**
      * The default loot table resource
      */
 //    @val(annos = @NonNull) NamespacedResource defaultLootTable = new NamespacedResource(id.namespace, "entities/" + id.path); FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-    default @NonNull NamespacedResource getDefaultLootTable() { return new NamespacedResource(id.namespace, "entities/" + id.path); }
+    default @NotNull NamespacedResource getDefaultLootTable() { return new NamespacedResource(id.namespace, "entities/" + id.path); }
 
     /**
      * Gets whether this type of entity should send delta movement(aka Motion) to client

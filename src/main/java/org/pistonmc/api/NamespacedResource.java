@@ -1,20 +1,23 @@
 package org.pistonmc.api;
 
-import lombok.AllArgsConstructor;
 import manifold.ext.props.rt.api.val;
 import net.kyori.adventure.key.Key;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-@AllArgsConstructor(onConstructor_ = @NonNull)
 public class NamespacedResource implements Key {
     public static final String DEFAULT_NAMESPACE = "minecraft";
     final @val String namespace;
     final @val String path;
 
-    public NamespacedResource(@NonNull String fullNameOrName) {
+    public NamespacedResource(String namespace, String path) {
+        this.namespace = namespace;
+        this.path = path;
+    }
+
+    public NamespacedResource(@NotNull String fullNameOrName) {
         if(fullNameOrName.contains(":")) { // If it is a full name
             String[] s = fullNameOrName.split(":");
             this.namespace = s[0];
@@ -25,27 +28,27 @@ public class NamespacedResource implements Key {
         }
     }
 
-    public static @NonNull NamespacedResource minecraft(String name) {
+    public static @NotNull NamespacedResource minecraft(String name) {
         return new NamespacedResource(DEFAULT_NAMESPACE, name);
     }
 
     @Override
-    public @NonNull String toString() {
+    public @NotNull String toString() {
         return namespace + ':' + path;
     }
 
     @Override
-    public @NonNull String namespace() {
+    public @NotNull String namespace() {
         return namespace;
     }
 
     @Override
-    public @NonNull String value() {
+    public @NotNull String value() {
         return path;
     }
 
     @Override
-    public @NonNull String asString() {
+    public @NotNull String asString() {
         return toString();
     }
 

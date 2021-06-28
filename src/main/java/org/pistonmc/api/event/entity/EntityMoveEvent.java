@@ -12,8 +12,7 @@ public class EntityMoveEvent extends EntityEvent {
      * 返回实体从哪个位置移动
      * @return 实体从哪个位置移动
      */
-    @val
-    Position from;
+    @val Position from;
 
     /**
      * 返回实体移动到哪个位置

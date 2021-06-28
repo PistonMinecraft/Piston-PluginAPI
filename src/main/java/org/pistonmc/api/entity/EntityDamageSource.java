@@ -1,11 +1,8 @@
 package org.pistonmc.api.entity;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
-public class EntityDamageSource {
-    public static int i = 100;
+public record EntityDamageSource(@NotNull String id) {
     public static final EntityDamageSource IN_FIRE = new EntityDamageSource("inFire");
     public static final EntityDamageSource LIGHTNING_BOLT = new EntityDamageSource("lightningBolt");
     public static final EntityDamageSource ON_FIRE = new EntityDamageSource("onFire");
@@ -27,14 +24,4 @@ public class EntityDamageSource {
     public static final EntityDamageSource DRAGON_BREATH = new EntityDamageSource("dragonBreath");
     public static final EntityDamageSource DRY_OUT = new EntityDamageSource("dryout");
     public static final EntityDamageSource SWEET_BERRY_BUSH = new EntityDamageSource("sweetBerryBush");
-
-    private final String id;
-
-    public EntityDamageSource(@NonNull String id) {
-        this.id = Objects.requireNonNull(id);
-    }
-
-    public @NonNull String getId() {
-        return id;
-    }
 }

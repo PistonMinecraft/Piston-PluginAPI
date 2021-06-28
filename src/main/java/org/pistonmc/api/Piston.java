@@ -1,10 +1,10 @@
 package org.pistonmc.api;
 
-import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.jetbrains.annotations.Nullable;
 import org.pistonmc.api.util.RegistryUtil;
 
 public class Piston {
-    public static @MonotonicNonNull Server server;
+    public static @Nullable Server server;
 
-    public static @MonotonicNonNull RegistryUtil registryUtil;
+    public static @Nullable RegistryUtil registryUtil;
 }

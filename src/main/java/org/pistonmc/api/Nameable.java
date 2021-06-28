@@ -1,8 +1,8 @@
 package org.pistonmc.api;
 
 import net.kyori.adventure.text.Component;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * 表示某个有name, custom name并且可能有display name的东西
@@ -14,8 +14,7 @@ public interface Nameable {
      * Gets the name of this {@link Nameable}
      * @return the name of this {@link Nameable}
      */
-    @NonNull
-    Component getName();
+    @NotNull Component getName();
 
     /**
      * Gets whether this {@link Nameable} has a custom name
@@ -29,8 +28,7 @@ public interface Nameable {
      * Gets the display name of this {@link Nameable}. Default implementation delegates to {@link Nameable#getName()}
      * @return the name of this {@link Nameable}, if any. Defaults to {@link Nameable#getName()}
      */
-    @NonNull
-    default Component getDisplayName() {
+    default @NotNull Component getDisplayName() {
         return getName();
     }
 
@@ -38,8 +36,7 @@ public interface Nameable {
      * Gets the custom name of this {@link Nameable}
      * @return the custom name of this {@link Nameable}, if any
      */
-    @Nullable
-    default Component getCustomName() {
+    default @Nullable Component getCustomName() {
         return null;
     }
 }

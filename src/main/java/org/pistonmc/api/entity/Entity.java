@@ -5,8 +5,8 @@ import manifold.ext.props.rt.api.val;
 import manifold.ext.props.rt.api.var;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.event.HoverEventSource;
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.common.value.qual.IntRange;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Range;
 import org.pistonmc.api.CommandSource;
 import org.pistonmc.api.Nameable;
 import org.pistonmc.api.Sound;
@@ -35,32 +35,31 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The type of this entity
      */
-    @val(annos = @NonNull) EntityType entityType;
+    @val(annos = @NotNull) EntityType entityType;
 
     /**
      * Returns the unique id of this entity
-     * @return the unique id of this entity
      */
-    @val(annos = @IntRange(from = 1)) int entityId;
+    @val(annos = @Range(from = 1, to = Integer.MAX_VALUE)) int entityId;
 
     /**
      * The tags that added by /tag command
      */
-    @val(annos = @NonNull) Set<String> tags;
+    @val(annos = @NotNull) Set<String> tags;
 
     /**
      * Adds the tag to this entity
      * @param tag the tag to be added
      * @return if the tag had been added successfully
      */
-    boolean addTag(@NonNull String tag);
+    boolean addTag(@NotNull String tag);
 
     /**
      * Removes the tag of this entity
      * @param tag the tag to be removed
      * @return if the tag had been removed successfully
      */
-    boolean removeTag(@NonNull String tag);
+    boolean removeTag(@NotNull String tag);
 
     /**
      * Kills this entity. Default delegates to {@link Entity#remove()}
@@ -82,7 +81,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The pose of this entity
      */
-    @var(param = @NonNull) @get(annos = @NonNull) EntityPose entityPose;
+    @var(param = @NotNull) @get(annos = @NotNull) EntityPose entityPose;
 
     /**
      * Sets the position of this entity
@@ -95,7 +94,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The portal cooldown time of this entity.
      */
-    @var(param = @IntRange(from = 0)) @get(annos = @IntRange(from = 0)) int portalCooldownTime;
+    @var(param = @Range(from = 0, to = Integer.MAX_VALUE)) @get(annos = @Range(from = 0, to = Integer.MAX_VALUE)) int portalCooldownTime;
 
     /**
      * Whether this entity is on portal cooldown
@@ -105,7 +104,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The ticks this entity will wait for before teleporting
      */
-    @var(param = @IntRange(from = 0)) @get(annos = @IntRange(from = 0)) int portalWaitTime;
+    @var(param = @Range(from = 0, to = Integer.MAX_VALUE)) @get(annos = @Range(from = 0, to = Integer.MAX_VALUE)) int portalWaitTime;
 
     /**
      * The remaining ticks of this entity on fire
@@ -130,7 +129,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
      * @param volume volume of the sound
      * @param pitch pitch of the sound
      */
-    void playSound(@NonNull Sound sound, float volume, float pitch);
+    void playSound(@NotNull Sound sound, float volume, float pitch);
 
     /**
      * Whether this entity is silent
@@ -186,7 +185,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
      * @param fluid the type of the fluid to be detected
      * @return if this entity's eye is in the type of the fluid
      */
-    boolean isEyeInFluid(@NonNull FluidType fluid);
+    boolean isEyeInFluid(@NotNull FluidType fluid);
 
     /**
      * Whether this entity is in lava
@@ -199,5 +198,5 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
      * @param hurtDamage Damage to hurt
      * @return if entity have been hurt successfully
      */
-    boolean hurt(@NonNull EntityDamageSource damageSource, float hurtDamage);
+    boolean hurt(@NotNull EntityDamageSource damageSource, float hurtDamage);
 }

@@ -6,9 +6,6 @@
 .gradle/
 build
 
-# Auto-generated Lombok configuration
-lombok.config
-
 # VSCode
 .settings/
 .project

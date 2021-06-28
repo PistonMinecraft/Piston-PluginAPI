@@ -1,11 +1,12 @@
 [versions]
-manifold = "2021.1.12"
+manifold = "2021.1.13"
 adventure = "4.7.0"
 joml = "1.10.1"
 log4j = "2.14.1"
 typetools = "0.8.3"
 eventbus = "4.0.0"
 snakeyaml = "2.3"
+jetbrains-annotations = "21.0.1"
 
 [libraries]
 manifold-rt = { module = "systems.manifold:manifold-rt", version.ref = "manifold" }
@@ -26,9 +27,11 @@ typetools = { module = "net.jodah:typetools", version.ref = "typetools" } # Even
 eventbus = { module = "net.minecraftforge:eventbus", version.ref = "eventbus" }
 snakeyaml = { module = "org.snakeyaml:snakeyaml-engine", version.ref = "snakeyaml"}
 
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+
 [bundles]
-manifold-resources = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt"]
-manifold-processors = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",
+annotation-processors = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",
     "manifold-strings-processor", "manifold-ext-processor", "manifold-props-processor"]
-shared-libs = ["adventure", "joml", "log4j", "typetools"]
+shared-compileonly-libs = ["jetbrains-annotations"]
+shared-libs = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt", "adventure", "joml", "log4j", "typetools"]
 shared-nontransitive-libs = ["eventbus"]

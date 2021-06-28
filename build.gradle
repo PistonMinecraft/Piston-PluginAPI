@@ -2,15 +2,13 @@ plugins {
     id 'idea'
     id 'java'
     id 'maven-publish'
-    id 'org.checkerframework' version '+'
-    id 'io.freefair.lombok' version '5.+'
 }
 
 ext {
     ENV = System.getenv()
     MC_VERSION = '1.16.x'
     VERSION = '0.1.0'
-    BUILD = "${ENV.GITHUB_RUN_NUMBER ? (ENV.GITHUB_RUN_NUMBER ?: '0') : 'INTERNAL_BUILD'}"
+    BUILD = "${ENV.GITHUB_RUN_NUMBER ?: 'INTERNAL_BUILD'}"
 }
 
 group = 'org.pistonmc.api'
@@ -29,15 +27,20 @@ configurations {
     implementation.canBeResolved = true
 }
 
-dependencies {
-    implementation libs.bundles.manifold.resources
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
-    implementation libs.bundles.shared.libs
+dependencies {
+    compileOnly libs.bundles.shared.compileonly.libs
+
+    implementation(libs.bundles.shared.libs) {
+        exclude module: 'annotations'
+        exclude group: 'org.checkerframework'
+    }
     implementation(libs.bundles.shared.nontransitive.libs) {
         transitive = false
     }
 
-    annotationProcessor libs.bundles.manifold.processors
+    annotationProcessor libs.bundles.annotation.processors
 }
 
 jar {
@@ -51,22 +54,9 @@ jar {
     from(configurations.implementation.collect(this::zipTree))
 }
 
-lombok {
-    config['lombok.sneakyThrows.flagUsage'] = 'error'
-    config['lombok.equalsAndHashCode.flagUsage'] = 'error'
-}
-
 tasks.withType(JavaCompile) {
     options.encoding 'UTF-8'
     options.compilerArgs.addAll(['-Xplugin:Manifold'])
-}
-
-checkerFramework {
-    excludeTests = true
-    checkers = [
-            'org.checkerframework.checker.nullness.NullnessChecker',
-            'org.checkerframework.common.value.ValueChecker',
-    ]
 }
 
 publishing {
