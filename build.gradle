@@ -12,8 +12,8 @@ ext {
 }
 
 group = 'org.pistonmc.api'
-archivesBaseName = 'plugin-api'
-version = "$MC_VERSION-$VERSION.$BUILD"
+base.archivesName = 'plugin-api'
+version = "$MC_VERSION-$VERSION${ENV.GITHUB_EVENT_NAME != 'workflow_dispatch' ? '-SNAPSHOT' : ".$BUILD"}"
 
 repositories {
     mavenCentral()
@@ -24,54 +24,76 @@ repositories {
 }
 
 configurations {
+    compileOnly.canBeResolved = true
     implementation.canBeResolved = true
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(16)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(16)
+    withSourcesJar()
+    withJavadocJar()
+}
 
 dependencies {
-    compileOnly libs.bundles.shared.compileonly.libs
+    compileOnly libs.bundles.compileonlys
 
-    implementation(libs.bundles.shared.libs) {
+    implementation(libs.bundles.libs) {
         exclude module: 'annotations'
         exclude group: 'org.checkerframework'
     }
-    implementation(libs.bundles.shared.nontransitive.libs) {
+    implementation(libs.bundles.nontransitives) {
         transitive = false
     }
 
-    annotationProcessor libs.bundles.annotation.processors
-}
-
-jar {
-    manifest.attributes([
-            'Specification-Title': project.name,
-            'Specification-Version': project.version,
-            'Specification-Vendor': 'PistonMC',
-            'Multi-Release': 'true',
-    ])
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    from(configurations.implementation.collect(this::zipTree))
+    annotationProcessor libs.bundles.annotations
 }
 
 tasks.withType(JavaCompile) {
     options.encoding 'UTF-8'
-    options.compilerArgs.addAll(['-Xplugin:Manifold'])
+    options.compilerArgs.add '-Xplugin:Manifold'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding 'UTF-8'
+    options.locale 'en_US' // This doesn't work, don't know why
+    classpath += configurations.annotationProcessor
+    configurations.compileOnly.resolve().each {
+        if(it.name.startsWith('manifold-javadoc-agent')) {
+            options.jFlags("-javaagent:${it.absolutePath}")
+        }
+    }
+}
+
+tasks.withType(Jar) {
+    manifest.attributes([
+            'Specification-Title': project.name,
+            'Specification-Version': project.ext.MC_VERSION,
+            'Specification-Vendor': 'PistonMC',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.ext.VERSION,
+            'Implementation-Vendor': 'PistonMC',
+    ])
 }
 
 publishing {
     repositories {
         maven {
+            name "${project.name}-GitHub-Registry"
             url "https://maven.pkg.github.com/PistonMinecraft/${project.name}"
             credentials {
                 username = ENV.GPR_USERNAME ?: ENV.GITHUB_ACTOR
                 password = ENV.GPR_TOKEN
             }
         }
+        maven {
+            name 'localrepo'
+            url layout.buildDirectory.dir('localrepo')
+        }
     }
+
     publications {
         maven(MavenPublication) {
-            artifactId = archivesBaseName
+            artifactId = base.archivesName.get()
             from components.java
         }
     }

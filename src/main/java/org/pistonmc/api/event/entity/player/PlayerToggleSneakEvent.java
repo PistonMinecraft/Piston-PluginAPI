@@ -1,4 +1,4 @@
-package org.pistonmc.api.event.player;
+package org.pistonmc.api.event.entity.player;
 
 import org.pistonmc.api.entity.player.PlayerEntity;
 

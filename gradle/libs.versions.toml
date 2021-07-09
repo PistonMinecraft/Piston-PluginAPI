@@ -1,5 +1,5 @@
 [versions]
-manifold = "2021.1.13"
+manifold = "2021.1.14"
 adventure = "4.7.0"
 joml = "1.10.1"
 log4j = "2.14.1"
@@ -12,6 +12,8 @@ jetbrains-annotations = "21.0.1"
 manifold-rt = { module = "systems.manifold:manifold-rt", version.ref = "manifold" }
 manifold-props-rt = { module = "systems.manifold:manifold-props-rt", version.ref = "manifold" }
 manifold-ext-rt = { module = "systems.manifold:manifold-ext-rt", version.ref = "manifold" }
+
+manifold-javadoc-agent = { module = "systems.manifold:manifold-javadoc-agent", version.ref = "manifold" }
 
 manifold-processor = { module = "systems.manifold:manifold", version.ref = "manifold" }
 manifold-preprocessor = { module = "systems.manifold:manifold-preprocessor", version.ref = "manifold" }
@@ -30,8 +32,8 @@ snakeyaml = { module = "org.snakeyaml:snakeyaml-engine", version.ref = "snakeyam
 jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
 
 [bundles]
-annotation-processors = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",
+annotations = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",
     "manifold-strings-processor", "manifold-ext-processor", "manifold-props-processor"]
-shared-compileonly-libs = ["jetbrains-annotations"]
-shared-libs = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt", "adventure", "joml", "log4j", "typetools"]
-shared-nontransitive-libs = ["eventbus"]
+compileonlys = ["jetbrains-annotations", "manifold-javadoc-agent"]
+libs = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt", "adventure", "joml", "log4j", "typetools"]
+nontransitives = ["eventbus"]

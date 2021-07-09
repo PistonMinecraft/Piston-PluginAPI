@@ -1,5 +1,6 @@
 package org.pistonmc.api;
 
+import manifold.ext.props.rt.api.val;
 import org.pistonmc.api.entity.player.PlayerEntity;
 
 import java.util.UUID;
@@ -26,8 +27,7 @@ public interface Server {
     PlayerEntity getPlayer(UUID playerUUID);
 
     /**
-     * 获取服务器最大人数
-     * @return
+     * 服务器最大人数
      */
-    int getMaxPlayer();
+    @val int maxPlayer;
 }

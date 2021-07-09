@@ -9,14 +9,12 @@ import org.pistonmc.api.location.Position;
  */
 public class EntityMoveEvent extends EntityEvent {
     /**
-     * 返回实体从哪个位置移动
-     * @return 实体从哪个位置移动
+     * 实体从哪个位置移动
      */
     @val Position from;
 
     /**
-     * 返回实体移动到哪个位置
-     * @return 实体移动到哪个位置
+     * 实体移动到哪个位置
      */
     @val Position to;
 
