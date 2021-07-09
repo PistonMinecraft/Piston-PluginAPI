@@ -1,12 +1,5 @@
 [versions]
 manifold = "2021.1.14"
-adventure = "4.7.0"
-joml = "1.10.1"
-log4j = "2.14.1"
-typetools = "0.8.3"
-eventbus = "4.0.0"
-snakeyaml = "2.3"
-jetbrains-annotations = "21.0.1"
 
 [libraries]
 manifold-rt = { module = "systems.manifold:manifold-rt", version.ref = "manifold" }
@@ -22,18 +15,18 @@ manifold-strings-processor = { module = "systems.manifold:manifold-strings", ver
 manifold-ext-processor = { module = "systems.manifold:manifold-ext", version.ref = "manifold" }
 manifold-props-processor = { module = "systems.manifold:manifold-props", version.ref = "manifold" }
 
-adventure = { module = "net.kyori:adventure-api", version.ref = "adventure" }
-joml = { module = "org.joml:joml", version.ref = "joml" }
-log4j = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j" }
-typetools = { module = "net.jodah:typetools", version.ref = "typetools" } # EventBus Lib
-eventbus = { module = "net.minecraftforge:eventbus", version.ref = "eventbus" }
-snakeyaml = { module = "org.snakeyaml:snakeyaml-engine", version.ref = "snakeyaml"}
+adventure = "net.kyori:adventure-api:4.8.1"
+joml = "org.joml:joml:1.10.1"
+log4j = "org.apache.logging.log4j:log4j-api:2.14.1"
+typetools = "net.jodah:typetools:0.8.3" # EventBus Lib
+eventbus = "net.minecraftforge:eventbus:5.0.3"
+snakeyaml = "org.snakeyaml:snakeyaml-engine:2.3"
 
-jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+jetbrains-annotations = "org.jetbrains:annotations:21.0.1"
 
 [bundles]
 annotations = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",
     "manifold-strings-processor", "manifold-ext-processor", "manifold-props-processor"]
 compileonlys = ["jetbrains-annotations", "manifold-javadoc-agent"]
-libs = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt", "adventure", "joml", "log4j", "typetools"]
+libs = ["manifold-rt", "manifold-props-rt", "manifold-ext-rt", "adventure", "joml", "log4j", "snakeyaml", "typetools"]
 nontransitives = ["eventbus"]
