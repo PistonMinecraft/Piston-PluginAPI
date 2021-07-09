@@ -30,4 +30,6 @@ jobs:
         path: build/libs/**
     - name: Upload build output to maven snapshot
       if: ${{ github.event_name == 'push' }}
+      env:
+        GPR_TOKEN: ${{ github.token }}
       run: ./gradlew clean publish
