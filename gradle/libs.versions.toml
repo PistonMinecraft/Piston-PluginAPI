@@ -1,5 +1,5 @@
 [versions]
-manifold = "2021.1.14"
+manifold = "2021.1.16"
 
 [libraries]
 manifold-rt = { module = "systems.manifold:manifold-rt", version.ref = "manifold" }
@@ -22,7 +22,7 @@ typetools = "net.jodah:typetools:0.8.3" # EventBus Lib
 eventbus = "net.minecraftforge:eventbus:5.0.3"
 snakeyaml = "org.snakeyaml:snakeyaml-engine:2.3"
 
-jetbrains-annotations = "org.jetbrains:annotations:21.0.1"
+jetbrains-annotations = "org.jetbrains:annotations:22.0.0"
 
 [bundles]
 annotations = ["manifold-processor", "manifold-preprocessor", "manifold-exceptions-processor",

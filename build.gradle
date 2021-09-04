@@ -2,12 +2,14 @@ plugins {
     id 'idea'
     id 'java'
     id 'maven-publish'
+    id 'org.checkerframework' version '0.5.+'
+    id 'org.cadixdev.licenser' version '0.6.1'
 }
 
 ext {
     ENV = System.getenv()
-    MC_VERSION = '1.16.x'
-    VERSION = '0.1.0'
+    MC_VERSION = '1.17.x'
+    VERSION = '0.1.0' // Not official released yet. Keep 0.1.0 until official released
     BUILD = "${ENV.GITHUB_RUN_NUMBER ?: 'INTERNAL_BUILD'}"
 }
 
@@ -31,7 +33,26 @@ java {
     withJavadocJar()
 }
 
+license {
+    header = project.file('HEADER')
+    properties {
+        year = '2021'
+    }
+    include('**/*.java')
+}
+
+checkerFramework {
+    checkers = [
+            'org.checkerframework.checker.nullness.NullnessChecker',
+    ]
+}
+
 dependencies {
+    // Checker Framework
+    compileOnly 'org.checkerframework:checker-qual:3.18.0'
+    testCompileOnly 'org.checkerframework:checker-qual:3.18.0'
+    checkerFramework 'org.checkerframework:checker:3.18.0'
+
     compileOnly libs.bundles.compileonlys
 
     implementation(libs.bundles.libs) {

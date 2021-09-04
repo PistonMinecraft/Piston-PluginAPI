@@ -1,3 +1,21 @@
+/*
+ * Piston's Lite Modding (to Minecraft) API. Also known as Piston Plugin API.
+ * Copyright (C) 2021 PistonMC
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package org.pistonmc.api.entity;
 
 import manifold.ext.props.rt.api.get;
@@ -35,7 +53,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The type of this entity
      */
-    @val(annos = @NotNull) EntityType entityType;
+    @val(annos = @NotNull) EntityType<? extends Entity> entityType;
 
     /**
      * Returns the unique id of this entity
@@ -165,20 +183,20 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * Whether this entity is in water or rain
      */
-//    @val boolean inWaterOrRain = inWater || inRain; FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-    default boolean isInWaterOrRain() { return isInWater() || isInRain(); }
+//    @val boolean inWaterOrRain = inWater || inRain; //FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
+    default boolean isInWaterOrRain() { return inWater || inRain; }
 
     /**
      * Whether this entity is in water or rain or bubble column
      */
-//    @val boolean inWaterRainOrBubble = inWater || inRain || inBubbleColumn; FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-    default boolean isInWaterRainOrBubble() { return isInWater() || isInRain() || isInBubbleColumn(); }
+//    @val boolean inWaterRainOrBubble = isInWater() || isInRain() || isInBubbleColumn();// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
+//    default boolean isInWaterRainOrBubble() { return isInWater() || isInRain() || isInBubbleColumn(); }
 
     /**
      * Whether this entity is in water or bubble column
      */
 //    @val boolean inWaterOrBubble = inWater || inBubbleColumn; FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-    default boolean isInWaterOrBubble() { return isInWater() || isInBubbleColumn(); }
+    default boolean isInWaterOrBubble() { return inWater || inBubbleColumn; }
 
     /**
      * Returns whether this entity's eye is in the type of the fluid or not
