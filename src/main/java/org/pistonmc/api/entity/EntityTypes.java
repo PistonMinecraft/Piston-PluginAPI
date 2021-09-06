@@ -20,6 +20,7 @@ package org.pistonmc.api.entity;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
+import org.jetbrains.annotations.NotNull;
 import org.pistonmc.api.NamespacedResource;
 import org.pistonmc.api.Piston;
 
@@ -285,12 +286,14 @@ public class EntityTypes {
             NamespacedResource.minecraft("fishing_bobber"));
 
     @RequiresNonNull("org.pistonmc.api.Piston.registryUtil")
-    public static NamespacedResource getKey(EntityType<?> type) {
+    @SuppressWarnings("nullness")
+    public static NamespacedResource getKey(@NonNull @NotNull EntityType<?> type) {
         return Piston.registryUtil.entityUtil.getRegisterKeyByEntityType(type);
     }
 
     @RequiresNonNull("org.pistonmc.api.Piston.registryUtil")
-    public static Optional<EntityType<?>> byString(String registryName) {
+    @SuppressWarnings("nullness")
+    public static Optional<EntityType<?>> byString(@NonNull @NotNull String registryName) {
         return Piston.registryUtil.entityUtil.getEntityTypeByString(registryName);
     }
 }

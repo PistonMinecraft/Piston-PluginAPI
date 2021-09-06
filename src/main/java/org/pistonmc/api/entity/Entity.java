@@ -189,7 +189,7 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * Whether this entity is in water or rain or bubble column
      */
-//    @val boolean inWaterRainOrBubble = isInWater() || isInRain() || isInBubbleColumn();// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
+    @val boolean inWaterRainOrBubble = isInWater() || isInRain() || isInBubbleColumn();// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
 //    default boolean isInWaterRainOrBubble() { return isInWater() || isInRain() || isInBubbleColumn(); }
 
     /**

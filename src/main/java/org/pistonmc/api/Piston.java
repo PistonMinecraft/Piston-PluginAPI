@@ -18,20 +18,22 @@
 
 package org.pistonmc.api;
 
+import manifold.ext.props.rt.api.get;
 import manifold.ext.props.rt.api.var;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
 import org.pistonmc.api.util.RegistryUtil;
 
 import java.util.Objects;
 
 public class Piston {
-    static @var
+    static @var @get(annos = @Nullable)
     @MonotonicNonNull Server server;
 
-    static @var
+    static @var @get(annos = @Nullable)
     @MonotonicNonNull RegistryUtil registryUtil;
 
     @EnsuresNonNull("Piston.server")
