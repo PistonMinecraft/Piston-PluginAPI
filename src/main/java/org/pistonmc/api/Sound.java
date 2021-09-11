@@ -18,6 +18,8 @@
 
 package org.pistonmc.api;
 
+import net.kyori.adventure.key.Key;
+
 public enum Sound {
     AMBIENT_CAVE("ambient.cave"),
     AMBIENT_BASALT_DELTAS_ADDITIONS("ambient.basalt_deltas.additions"),
@@ -1011,9 +1013,9 @@ public enum Sound {
     ZOMBIE_VILLAGER_DEATH("entity.zombie_villager.death"),
     ZOMBIE_VILLAGER_HURT("entity.zombie_villager.hurt"),
     ZOMBIE_VILLAGER_STEP("entity.zombie_villager.step");
-    public final NamespacedResource id;
+    public final Key id;
 
     Sound(String id) {
-        this.id = NamespacedResource.minecraft(id);
+        this.id = Key.key(id);
     }
 }

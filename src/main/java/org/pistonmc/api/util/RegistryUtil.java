@@ -19,9 +19,9 @@
 package org.pistonmc.api.util;
 
 import manifold.ext.props.rt.api.val;
+import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
-import org.pistonmc.api.NamespacedResource;
 import org.pistonmc.api.entity.Entity;
 import org.pistonmc.api.entity.EntityType;
 
@@ -31,9 +31,9 @@ import java.util.Optional;
 public interface RegistryUtil {
     @ApiStatus.Internal
     interface EntityUtil {
-        <T extends Entity> EntityType<T> getEntityType(NamespacedResource registryName);
+        <T extends Entity> EntityType<T> getEntityType(Key registryName);
 
-        NamespacedResource getRegisterKeyByEntityType(EntityType<?> type);
+        Key getRegisterKeyByEntityType(EntityType<?> type);
 
         <T extends Entity> Optional<EntityType<T>> getEntityTypeByString(String name);
     }

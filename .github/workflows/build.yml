@@ -30,4 +30,4 @@ jobs:
       if: ${{ github.event_name == 'push' }}
       env:
         GPR_TOKEN: ${{ github.token }}
-      run: ./gradlew clean publish
+      run: ./gradlew publish

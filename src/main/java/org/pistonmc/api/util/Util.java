@@ -18,11 +18,10 @@
 
 package org.pistonmc.api.util;
 
-import org.pistonmc.api.NamespacedResource;
+import net.kyori.adventure.key.Key;
 
 public class Util {
-    public static String makeDescriptionId(String prefix, NamespacedResource resource) {
-        return resource == null ? prefix + ".unregistered_sadface" :
-                prefix + '.' + resource.namespace + '.' + resource.path.replace('/', '.');
+    public static String makeDescriptionId(String prefix, Key resource) {
+        return resource == null ? prefix + ".unregistered_sadface" : prefix + '.' + resource.namespace() + '.' + resource.value().replace('/', '.');
     }
 }
