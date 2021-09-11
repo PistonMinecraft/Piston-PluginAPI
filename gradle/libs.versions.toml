@@ -1,5 +1,5 @@
 [versions]
-manifold = "2021.1.16"
+manifold = "2021.1.17"
 
 [libraries]
 manifold-rt = { module = "systems.manifold:manifold-rt", version.ref = "manifold" }
@@ -15,8 +15,8 @@ manifold-strings-processor = { module = "systems.manifold:manifold-strings", ver
 manifold-ext-processor = { module = "systems.manifold:manifold-ext", version.ref = "manifold" }
 manifold-props-processor = { module = "systems.manifold:manifold-props", version.ref = "manifold" }
 
-adventure = "net.kyori:adventure-api:4.8.1"
-joml = "org.joml:joml:1.10.1"
+adventure = "net.kyori:adventure-api:4.9.1"
+joml = "org.joml:joml:1.10.2"
 log4j = "org.apache.logging.log4j:log4j-api:2.14.1"
 typetools = "net.jodah:typetools:0.8.3" # EventBus Lib
 eventbus = "net.minecraftforge:eventbus:5.0.3"
