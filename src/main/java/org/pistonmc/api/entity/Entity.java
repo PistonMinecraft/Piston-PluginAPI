@@ -23,6 +23,7 @@ import manifold.ext.props.rt.api.val;
 import manifold.ext.props.rt.api.var;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.event.HoverEventSource;
+import org.checkerframework.common.value.qual.IntRange;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Range;
 import org.pistonmc.api.CommandSource;
@@ -56,9 +57,12 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     @val(annos = @NotNull) EntityType<? extends Entity> entityType;
 
     /**
-     * Returns the unique id of this entity
+     * The unique id of this entity<br>
+     * <b>IMPORTANT: YOU SHOULD NOT CHANGE THIS VALUE UNLESS YOU ARE PRETTY SURE OF WHAT YOU ARE DOING</b>
      */
-    @val(annos = @Range(from = 1, to = Integer.MAX_VALUE)) int entityId;
+    @var(param = { @Range(from = 1, to = Integer.MAX_VALUE), @IntRange(from = 1) })
+    @get(annos = { @Range(from = 1, to = Integer.MAX_VALUE), @IntRange(from = 1) })
+    int entityId;
 
     /**
      * The tags that added by /tag command
@@ -112,7 +116,9 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The portal cooldown time of this entity.
      */
-    @var(param = @Range(from = 0, to = Integer.MAX_VALUE)) @get(annos = @Range(from = 0, to = Integer.MAX_VALUE)) int portalCooldownTime;
+    @var(param = { @Range(from = 0, to = Integer.MAX_VALUE), @IntRange(from = 0) })
+    @get(annos = { @Range(from = 0, to = Integer.MAX_VALUE), @IntRange(from = 0) })
+    int portalCooldownTime;
 
     /**
      * Whether this entity is on portal cooldown
@@ -122,7 +128,9 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * The ticks this entity will wait for before teleporting
      */
-    @var(param = @Range(from = 0, to = Integer.MAX_VALUE)) @get(annos = @Range(from = 0, to = Integer.MAX_VALUE)) int portalWaitTime;
+    @var(param = { @Range(from = 0, to = Integer.MAX_VALUE), @IntRange(from = 0) })
+    @get(annos = { @Range(from = 0, to = Integer.MAX_VALUE), @IntRange(from = 0) })
+    int portalWaitTime;
 
     /**
      * The remaining ticks of this entity on fire
@@ -183,19 +191,21 @@ public interface Entity extends Nameable, CommandSource, HoverEventSource<HoverE
     /**
      * Whether this entity is in water or rain
      */
-//    @val boolean inWaterOrRain = inWater || inRain; //FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
+    //    @val boolean inWaterOrRain = inWater || inRain;// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
     default boolean isInWaterOrRain() { return inWater || inRain; }
 
     /**
      * Whether this entity is in water or rain or bubble column
      */
-    @val boolean inWaterRainOrBubble = isInWater() || isInRain() || isInBubbleColumn();// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
-//    default boolean isInWaterRainOrBubble() { return isInWater() || isInRain() || isInBubbleColumn(); }
+    //    @val boolean inWaterRainOrBubble = inWater || inRain || inBubbleColumn;// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
+    default boolean isInWaterRainOrBubble() {
+        return inWater || inRain || inBubbleColumn;
+    }
 
     /**
      * Whether this entity is in water or bubble column
      */
-//    @val boolean inWaterOrBubble = inWater || inBubbleColumn; FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
+    //    @val boolean inWaterOrBubble = inWater || inBubbleColumn;// FIXME: Manifold bug. Cannot invoke methods/get properties in the initializer of a val property in an interface
     default boolean isInWaterOrBubble() { return inWater || inBubbleColumn; }
 
     /**

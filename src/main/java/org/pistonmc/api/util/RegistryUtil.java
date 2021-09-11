@@ -22,6 +22,7 @@ import manifold.ext.props.rt.api.val;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.pistonmc.api.NamespacedResource;
+import org.pistonmc.api.entity.Entity;
 import org.pistonmc.api.entity.EntityType;
 
 import java.util.Optional;
@@ -30,9 +31,12 @@ import java.util.Optional;
 public interface RegistryUtil {
     @ApiStatus.Internal
     interface EntityUtil {
-        <T extends org.pistonmc.api.entity.Entity> EntityType<T> getEntityType(NamespacedResource registryName);
+        <T extends Entity> EntityType<T> getEntityType(NamespacedResource registryName);
+
         NamespacedResource getRegisterKeyByEntityType(EntityType<?> type);
-        Optional<EntityType<?>> getEntityTypeByString(String name);
+
+        <T extends Entity> Optional<EntityType<T>> getEntityTypeByString(String name);
     }
-    @val @NotNull EntityUtil entityUtil;
+
+    @val(annos = @NotNull) EntityUtil entityUtil;
 }

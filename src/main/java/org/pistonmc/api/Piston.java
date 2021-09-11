@@ -22,7 +22,6 @@ import manifold.ext.props.rt.api.get;
 import manifold.ext.props.rt.api.var;
 import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
 import org.pistonmc.api.util.RegistryUtil;
@@ -30,14 +29,16 @@ import org.pistonmc.api.util.RegistryUtil;
 import java.util.Objects;
 
 public class Piston {
-    static @var @get(annos = @Nullable)
+    static @var
+    @get(annos = { @Nullable, @org.jetbrains.annotations.Nullable })
     @MonotonicNonNull Server server;
 
-    static @var @get(annos = @Nullable)
+    static @var
+    @get(annos = { @Nullable, @org.jetbrains.annotations.Nullable })
     @MonotonicNonNull RegistryUtil registryUtil;
 
     @EnsuresNonNull("Piston.server")
-    public static void setServer(@NotNull @NonNull Server server) {
+    public static void setServer(@NotNull Server server) {
         if (Piston.server != null) {
             throw new IllegalStateException("Server already set");
         }
@@ -45,7 +46,7 @@ public class Piston {
     }
 
     @EnsuresNonNull("Piston.registryUtil")
-    public static void setRegistryUtil(@NotNull @NonNull RegistryUtil registryUtil) {
+    public static void setRegistryUtil(@NotNull RegistryUtil registryUtil) {
         if (Piston.registryUtil != null) {
             throw new IllegalStateException("Registry Util already set");
         }

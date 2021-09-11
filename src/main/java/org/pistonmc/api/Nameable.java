@@ -18,9 +18,10 @@
 
 package org.pistonmc.api;
 
+import manifold.ext.props.rt.api.val;
 import net.kyori.adventure.text.Component;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * 表示某个有name, custom name并且可能有display name的东西
@@ -29,17 +30,18 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface Nameable {
     /**
-     * Gets the name of this {@link Nameable}
-     * @return the name of this {@link Nameable}
+     * The name of this {@link Nameable}
      */
-    @NotNull Component getName();
+    @val(annos = @NotNull) Component name;
 
     /**
      * Gets whether this {@link Nameable} has a custom name
+     *
      * @return if this {@link Nameable} has a custom name
+     * @see #customName
      */
     default boolean hasCustomName() {
-        return getCustomName() != null;
+        return customName != null;
     }
 
     /**
@@ -47,14 +49,13 @@ public interface Nameable {
      * @return the name of this {@link Nameable}, if any. Defaults to {@link Nameable#getName()}
      */
     default @NotNull Component getDisplayName() {
-        return getName();
+        return name;
     }
 
     /**
-     * Gets the custom name of this {@link Nameable}
-     * @return the custom name of this {@link Nameable}, if any
+     * The custom name of this {@link Nameable}. Can be null.
+     *
+     * @see #hasCustomName() Check whether custom name is null
      */
-    default @Nullable Component getCustomName() {
-        return null;
-    }
+    @val(annos = { @Nullable, @org.jetbrains.annotations.Nullable }) Component customName;
 }

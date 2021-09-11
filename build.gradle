@@ -44,6 +44,7 @@ license {
 checkerFramework {
     checkers = [
             'org.checkerframework.checker.nullness.NullnessChecker',
+            'org.checkerframework.common.value.ValueChecker',
     ]
 }
 
