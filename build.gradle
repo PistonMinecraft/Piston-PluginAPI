@@ -49,11 +49,6 @@ checkerFramework {
 }
 
 dependencies {
-    // Checker Framework
-    compileOnly 'org.checkerframework:checker-qual:3.18.0'
-    testCompileOnly 'org.checkerframework:checker-qual:3.18.0'
-    checkerFramework 'org.checkerframework:checker:3.18.0'
-
     compileOnly libs.bundles.compileonlys
 
     implementation(libs.bundles.libs) {
